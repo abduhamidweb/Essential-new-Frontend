@@ -1,9 +1,9 @@
+import "./index.scss"
 import { useDispatch, useSelector } from "react-redux";
 import { setCorrect, setInCorrect, setStartData } from "../../features/counter/counterSlice";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 const Playgame = () => {
     const { controller, startDate } = useSelector((state) => state.counter);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,8 +19,8 @@ const Playgame = () => {
         'Content-Type': 'application/json',
         'token': localStorage.getItem("token")
     };
- 
- 
+
+
 
     useEffect(() => {
         if (!localStorage.getItem("token")) {
@@ -138,41 +138,83 @@ const Playgame = () => {
         <div>
             {currentIndex < startDate.length ? (
                 <>
-                    <h3>{currentQuestion.question}</h3>
-                    <div>
-                        {currentQuestion.variants.map(variant => (
-                            <label key={variant}>
-                                <input
-                                    type="radio"
-                                    value={variant}
-                                    checked={selectedVariant === variant}
-                                    onChange={handleVariantChange}
-                                />
-                                {variant}
-                            </label>
-                        ))}
+                    <div className="quiz-app">
+                        <div className="quiz-info">
+                            <div className="count">Questions Count: <span>{startDate.length}</span></div>
+                            <div className="count">End Words: <span>{currentIndex}</span></div>
+                        </div>
+                        <div className="quiz-area">
+                            {currentQuestion.question}
+                        </div>
+                        <div className="options-area">
+                            {currentQuestion.variants.map(variant => (
+                                <label key={variant} className="form-control">
+                                    <input
+                                        type="radio"
+                                        className="mx-2"
+                                        value={variant}
+                                        checked={selectedVariant === variant}
+                                        onChange={handleVariantChange}
+                                    />
+                                    {variant}
+                                </label>
+                            ))}
+                        </div>
                     </div>
+
+
                 </>
             ) : (
-                <>
-                    <div className="d-flex mt-4">  <h3 >All words try again:  </h3><button className="btn mx-2" onClick={allWordsTryAgain}>submit</button></div>
-                    <div className="d-flex mt-4">   <h3>Correct Answers: </h3> <button className="btn mx-2" onClick={allCorrectWordsTryAgain}> submit</button></div>
-                    {correctData.map(item => (
-                        <p key={item._id}>{item.question} - {item.answer}</p>
-                    ))}
-                    <div className="d-flex mt-4"><h3>incorrect Answers: </h3> <button className="btn mx-2" onClick={allInCorrectWordsTryAgain}> submit</button></div>
+                    <>
+                        <div className="container ">
+                            <div className="row border mt-5 p-5" >
+                                <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
+                                    <div className="result-section">
+                                        <div className="result-items">
+                                            <div className="d-flex mt-4">
+                                                <h3>Topilgan so'zlarni qayta mustaxkamlang:</h3>
+                                            </div>
+                                            {correctData.length ? (
+                                                correctData.map(item => (
+                                                    <p key={item._id}>{item.question} - {item.answer}</p>
+                                                ))
+                                            ) : (
+                                                <p>Siz so'z topa olmadingiz.</p>
+                                            )}
+                                            <button className="btn mx-2 mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allCorrectWordsTryAgain}>topilgan so'zlarni qayta o'ynash</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
+                                    <div className="result-section">
+                                        <div className="result-items">
+                                            <div className="d-flex mt-4">
+                                                <h3>Topilmagan so'zlarni qayta o'ynang</h3>
+                                            </div>
+                                            {incorrectData.length ? (
+                                                incorrectData.map(item => (
+                                                    <p key={item._id}>{item.question} - {item.answer}</p>
+                                                ))
+                                            ) : (
+                                                <p>Siz hammasini to'g'ri topdingiz.</p>
+                                            )}
+                                            <button className="mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allInCorrectWordsTryAgain}>topilmagan so'zlarni qayta o'ynash</button>
 
-                    {incorrectData.map(item => (
-                        <p key={item._id}>{item.question} - {item.answer}</p>
-                    ))}
-                    <h3>Error Responses:</h3>
-                    {errorData.map(item => (
-                        <p key={item._id}>{item.question} - {item.answer}</p>
-                    ))}
-                    <button onClick={() => {
-                        navigate("/controller")
-                    }}>try again</button>
-                </>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12">
+                                    <button className="try-again-btn btn text-light " onClick={allWordsTryAgain}>Qaytadan o'ynash</button>
+                                    <button className="btn btn-danger text-light " onClick={() => navigate("/controller")}>
+                                        Bosh menuga qaytish
+                                    </button>
+                                </div>
+                            </div>
+                           
+                     </div>
+
+                    </>
+
             )}
         </div>
     );

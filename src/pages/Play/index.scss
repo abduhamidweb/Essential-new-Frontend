@@ -1,0 +1,272 @@
+* {
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.quiz-app {
+  background-color: #fff;
+  border: 10px solid #f6f6f6;
+  margin: 20px auto;
+  width: 800px;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.quiz-app .quiz-info {
+  display: flex;
+  padding: 20px;
+  background-color: #f6f6f6;
+  border-radius: 20px;
+}
+
+.quiz-app .quiz-info .category {
+  flex: 1;
+}
+
+.quiz-app .quiz-info .count {
+  flex: 1;
+  text-align: right;
+}
+
+.quiz-app .quiz-area {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.quiz-app .quiz-area h2 {
+  margin: 0;
+}
+
+.quiz-app .options-area {
+  background-color: #fff;
+  padding: 0 20px;
+  /* border-radius: 20px; */
+}
+
+.quiz-app .options-area .option {
+  background-color: #f6f6f6;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.quiz-app .options-area .option:hover {
+  background-color: #f0f0f0;
+}
+
+/* .quiz-app .options-area .option:not(:last-child) {
+  border-bottom: 1px solid #dfdfdf;
+} */
+
+.quiz-app .options-area .option input[type="Radio"]:checked+label {
+  color: #0055ff;
+}
+
+.quiz-app .options-area .option label {
+  cursor: pointer;
+  color: #444;
+  font-weight: bold;
+  margin-left: 5px;
+  position: relative;
+  top: -2px;
+}
+
+.quiz-app .submit-button {
+  background-color: #0055ff;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  padding: 15px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 20px;
+  margin: 20px auto;
+}
+
+.quiz-app .submit-button:hover {
+  background-color: #003d80;
+}
+
+.quiz-app .submit-button:focus {
+  outline: none;
+}
+
+.quiz-app .bullets {
+  background-color: #f6f6f6;
+  display: flex;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.quiz-app .bullets .spans {
+  flex: 1;
+  display: flex;
+}
+
+.quiz-app .bullets .spans span {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.quiz-app .bullets .spans span.on {
+  background-color: #0055ff;
+}
+
+.quiz-app .results {
+  text-align: center;
+  font-size: 24px;
+}
+
+.quiz-app .results span {
+  font-weight: bold;
+}
+
+.quiz-app .results span.perfect {
+  color: #FFD700;
+}
+
+.quiz-app .results span.good {
+  color: #2ecc71;
+}
+
+.quiz-app .results span.fair {
+  color: #b3b0ad;
+}
+
+.quiz-app .results span.bad {
+  color: #c0392b;
+}
+div {
+  // Quiz-app container
+.quiz-app {
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+
+  .quiz-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .count {
+      font-size: 18px;
+
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .quiz-area {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .options-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+}
+.result-section {
+  margin-top: 20px;
+
+  .result-items {
+    .d-flex {
+      align-items: center;
+      margin-top: 10px;
+
+      h3 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      button {
+        margin-left: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+
+    p {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+  }
+
+  .result-header {
+    .d-flex {
+      align-items: center;
+      margin-top: 10px;
+
+      h3 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      button {
+        margin-left: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+
+}
+  .try-again-btn {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }

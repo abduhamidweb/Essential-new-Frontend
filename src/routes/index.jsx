@@ -1,11 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-import React from 'react';
-import { Counter } from "../features/counter/Counter";
-import SignIn from "../pages/Auth/SiginIn";
-import Controller from "../pages/Controller/Controller";
-import Playgame from "../pages/Play/Playgame";
-import Admin from "../pages/admin/Admin";
 import Login from "../pages/Auth/Login";
+import SignIn from "../pages/Auth/SiginIn";
+import Admin from "../pages/admin/Admin";
+import Playgame from "../pages/Play/Playgame";
+import { Route, Routes } from "react-router-dom";
+import { Counter } from "../features/counter/Counter";
+import Controller from "../pages/Controller/Controller";
 const index = () => {
     return (
         <>
