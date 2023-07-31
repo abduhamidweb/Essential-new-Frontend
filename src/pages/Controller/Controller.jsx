@@ -115,6 +115,16 @@ const Controller = () => {
             console.error('Please select at least one book, one unit, and set word count.');
         }
     };
+
+    const groupedUnits = {};
+
+    // "units" dizisini "bookId" değerine göre gruplama
+    units.forEach(unit => {
+        if (!groupedUnits[unit.bookId]) {
+            groupedUnits[unit.bookId] = [];
+        }
+        groupedUnits[unit.bookId].push(unit);
+    });
     return (
         <div className="container">
             <div className="row">
@@ -158,18 +168,27 @@ const Controller = () => {
 
                     <ul>
                         <h2>Unitni tanlang!!</h2>
-                        {units && units
-                            .filter(unit => selectedBooks.includes(unit.bookId))
-                            .map(unit => (
-                                <li key={unit._id} className="bookList">
-                                    <h3>{unit.unitname}</h3>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedUnits.includes(unit._id)}
-                                        onChange={event => handleUnitCheckboxChange(event, unit._id)}
-                                    />
-                                </li>
-                            ))}
+                        <div style={{ display: "flex" }}>
+                            {selectedBooks.map(selectedBookId => {
+                                const bookUnits = units.filter(unit => unit.bookId === selectedBookId);
+                                return (
+                                    <div key={selectedBookId} style={{ flex: 1 }}>
+                                        <ul>
+                                            {bookUnits.map(unit => (
+                                                <li key={unit._id} className="bookList">
+                                                    <h3>{unit.unitname}</h3>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedUnits.includes(unit._id)}
+                                                        onChange={event => handleUnitCheckboxChange(event, unit._id)}
+                                                    />
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </ul>
                 </div>
                 </div>

@@ -161,8 +161,6 @@ const Playgame = () => {
                             ))}
                         </div>
                     </div>
-
-
                 </>
             ) : (
                     <>
