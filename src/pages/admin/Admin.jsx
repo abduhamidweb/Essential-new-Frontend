@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+    const navigate = useNavigate();
+
     const headers = {
         'Content-Type': 'application/json',
         'token': localStorage.getItem("admin-token")
     };
+    if (headers.token==null || headers.token ==undefined) { navigate('/login'); }
     const [books, setBooks] = useState([]);
     const [editingBookId, setEditingBookId] = useState(null);
     const [newBook, setNewBook] = useState({ bookname: '', description: '' });

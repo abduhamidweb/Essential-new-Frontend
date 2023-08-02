@@ -128,7 +128,6 @@ const Controller = () => {
     return (
         <div className="container">
             <div className="row">
-
                 <div className="col-12 border p-2 mt-2 d-flex">
                     <h2>Yo'nalishni tanlang!!</h2>
                     <div className="checkboxs">

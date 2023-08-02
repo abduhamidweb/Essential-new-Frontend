@@ -5,8 +5,8 @@ import axios from 'axios';
 const Login = () => {
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('abduhamidbotirov@gmail.com');
+    const [password, setPassword] = useState('strongpassword!@#$12Mopasd!&$');
 
     const handleLogin = async () => {
         try {

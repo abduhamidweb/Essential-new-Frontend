@@ -4,6 +4,7 @@ import { setCorrect, setInCorrect, setStartData } from "../../features/counter/c
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import QumSoat from "../../components/QumSoat";
 const Playgame = () => {
     const { controller, startDate } = useSelector((state) => state.counter);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -145,6 +146,9 @@ const Playgame = () => {
                         </div>
                         <div className="quiz-area">
                             {currentQuestion.question}
+                            {
+                                <QumSoat initialTime={startDate.length*10} />    
+                            }
                         </div>
                         <div className="options-area">
                             {currentQuestion.variants.map(variant => (
