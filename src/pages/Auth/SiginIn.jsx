@@ -10,7 +10,7 @@ const SignIn = () => {
                 console.error('Username cannot be empty.');
                 return;
             }
-            const response = await axios.post('http://localhost:5000/api/users', {
+            const response = await axios.post('https://lugat.onrender.com/api/users', {
                 username: username
             });
             const token = response.data.token;

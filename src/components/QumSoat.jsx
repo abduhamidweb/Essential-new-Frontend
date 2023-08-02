@@ -27,9 +27,9 @@ const QumSoat = ({ initialTime = 30 }) => {
     const remainingSeconds = seconds % 60;
 
     return (
-        <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'red' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                Qum soat: {minutes} minut {remainingSeconds} sekund
+        <div >
+            <div >
+                <strong>minut:</strong>  {minutes} <strong>second:</strong> {remainingSeconds} 
             </div>
         </div>
     );

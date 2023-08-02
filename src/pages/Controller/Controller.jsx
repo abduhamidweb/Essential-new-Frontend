@@ -49,8 +49,8 @@ const Controller = () => {
         if (!localStorage.getItem("token")) {
             navigate("/auth");
         } else {
-            getData(`http://localhost:5000/api/books`, setAllBooks);
-            getData(`http://localhost:5000/api/units`, setAllUnits);
+            getData(`https://lugat.onrender.com/api/books`, setAllBooks);
+            getData(`https://lugat.onrender.com/api/units`, setAllUnits);
         }
     }, [navigate]);
 

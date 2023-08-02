@@ -30,7 +30,7 @@ const Playgame = () => {
         }
         async function getStartData() {
             try {
-                const startDataResponse = await axios.post(`http://localhost:5000/api/start`, controller, { headers });
+                const startDataResponse = await axios.post(`https://lugat.onrender.com/api/start`, controller, { headers });
                 setCloneUpdatedArray([...startDataResponse.data]);
                 dispatch(setStartData(startDataResponse.data));
             } catch (error) {
@@ -59,7 +59,7 @@ const Playgame = () => {
     async function postEndData() {
         try {
             if (currentIndex >= startDate.length) {
-                let res = await axios.post(`http://localhost:5000/api/end`, updatedArray, { headers });
+                let res = await axios.post(`https://lugat.onrender.com/api/end`, updatedArray, { headers });
                 const { correct, incorrect, errorRes } = res.data
                 setCorrectData([...correct]);
                 setIncorrectData([...incorrect]);
@@ -141,14 +141,16 @@ const Playgame = () => {
                 <>
                     <div className="quiz-app">
                         <div className="quiz-info">
+                           
+                            <div className="count"><span> {
+                                <QumSoat initialTime={startDate.length * 10} />
+                            }</span></div>
                             <div className="count">Questions Count: <span>{startDate.length}</span></div>
                             <div className="count">End Words: <span>{currentIndex}</span></div>
                         </div>
                         <div className="quiz-area">
                             {currentQuestion.question}
-                            {
-                                <QumSoat initialTime={startDate.length*10} />    
-                            }
+                            
                         </div>
                         <div className="options-area">
                             {currentQuestion.variants.map(variant => (
