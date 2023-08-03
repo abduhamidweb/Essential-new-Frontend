@@ -130,7 +130,22 @@ const Controller = () => {
             console.error('Please select at least one book, one unit, and set word count.');
         }
     };
+    
+    const handlerNavigateSpeaking = () => {
+        if (selectedBooks.length && selectedUnits.length && (count || wordsCount) && sort === 'eng') {
+            const allController = {
+                "booksId": selectedBooks,
+                "unitsId": selectedUnits,
+                "sort": sort,
+                "wordCount": count ? Number(count) : Number(wordsCount)
+            };
 
+            dispatch(setAllContr(allController));
+            navigate("/speaking");
+        } else {
+            console.error('Please select at least one book, one unit, and set word count.');
+        }
+    };
     const groupedUnits = {};
 
     // "units" dizisini "bookId" değerine göre gruplama
@@ -210,7 +225,12 @@ const Controller = () => {
                 <h4>Yo'nalish <strong>{sort}</strong>. Miqdori <strong>{count ? count : wordsCount}</strong>. Bu ko'pmasmi!!</h4>
                 <input type="range" max={wordsCount} className="w-50" maxLength={wordsCount} onChange={(e) => setCount(e.target.value)} />
                 <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigate}>play game</button>
-                <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigateWriting}>writing</button>
+                {
+                    sort == "eng" ? <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigateWriting}  >writing</button> : <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigateWriting}  disabled>writing click uzb to eng yo'nalish</button>
+                }
+                {
+                    sort == "eng" ? <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigateSpeaking}  >Speaking</button> : <button className="btn btn-info w-100 mt-3 p-3"  disabled>Speaking click uzb to eng yo'nalish</button>
+                }
             </div>
         </div>
     );

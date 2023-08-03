@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { Counter } from "../features/counter/Counter";
 import Controller from "../pages/Controller/Controller";
 import Writing from "../pages/Writing/Writing";
+import Speaking from "../pages/Speaking/Speaking";
 const index = () => {
     return (
         <>
@@ -16,6 +17,7 @@ const index = () => {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/writing" element={<Writing />} />
                 <Route path="/counter" element={<Counter />} />
+                <Route path="/speaking" element={<Speaking />} />
                 <Route path="/controller" element={<Controller />} />
                 <Route path="/playgame" element={<Playgame />} />
             </Routes>
