@@ -1,3 +1,4 @@
+
 import "./index.scss"
 import { useDispatch, useSelector } from "react-redux";
 import { setCorrect, setInCorrect, setStartData } from "../../features/counter/counterSlice";
@@ -6,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import QumSoat from "../../components/QumSoat";
 import { FaRedoAlt } from 'react-icons/fa';
-const Playgame = () => {
+const Writing = () => {
     const { controller, startDate } = useSelector((state) => state.counter);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedVariant, setSelectedVariant] = useState('');
@@ -31,7 +32,7 @@ const Playgame = () => {
         }
         async function getStartData() {
             try {
-                const startDataResponse = await axios.post(`https://lugat.onrender.com/api/start`, controller, { headers });
+                const startDataResponse = await axios.post(`http://localhost:5000/api/start`, controller, { headers });
                 setCloneUpdatedArray([...startDataResponse.data]);
                 dispatch(setStartData(startDataResponse.data));
             } catch (error) {
@@ -60,7 +61,7 @@ const Playgame = () => {
     async function postEndData() {
         try {
             if (currentIndex >= startDate.length) {
-                let res = await axios.post(`https://lugat.onrender.com/api/end`, updatedArray, { headers });
+                let res = await axios.post(`http://localhost:5000/api/end`, updatedArray, { headers });
                 const { correct, incorrect, errorRes } = res.data
                 setCorrectData([...correct]);
                 setIncorrectData([...incorrect]);
@@ -86,7 +87,7 @@ const Playgame = () => {
     }, [currentQuestion]);
 
     const isEnglishQuestion = (question) => {
-    console.log('question :', question);
+        console.log('question :', question);
         if (typeof question !== 'string') {
             return false;
         }
@@ -115,7 +116,7 @@ const Playgame = () => {
             speakQuestion(currentQuestion.question);
         }
     };
-    
+
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -176,13 +177,25 @@ const Playgame = () => {
             setErrorData([]);
         }
     };
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleCheckButtonClick();
+        }
+    };
+
+    const [inputValue, setInputValue] = useState('');
+
+    const handleCheckButtonClick = () => {
+        handleVariantChange({ target: { value: inputValue } });
+        setInputValue('');
+    };
     return (
         <div>
             {currentIndex < startDate.length ? (
                 <>
                     <div className="quiz-app">
                         <div className="quiz-info">
-                           
+
                             <div className="count"><span> {
                                 <QumSoat initialTime={startDate.length * 10} />
                             }</span></div>
@@ -196,74 +209,73 @@ const Playgame = () => {
                             </span>
                         </div>
                         <div className="options-area">
-                            {currentQuestion.variants.map(variant => (
-                                <label key={variant} className="form-control">
-                                    <input
-                                        type="radio"
-                                        className="mx-2"
-                                        value={variant}
-                                        checked={selectedVariant === variant}
-                                        onChange={handleVariantChange}
-                                    />
-                                    {variant}
-                                </label>
-                            ))}
+                            <div className="form-control">
+                                <input
+                                    type="text" // Inputning type'ini text ga o'zgartiramiz
+                                    className="mx-2 w-75 border border-none"
+                                    value={inputValue}
+                                    onChange={(event) => setInputValue(event.target.value)} // Tarjimani inputValue ga saqlaymiz
+                                    onKeyPress={handleKeyPress}
+                                />
+                                <button onClick={handleCheckButtonClick}>Check</button>
+                            </div>
+
                         </div>
                     </div>
                 </>
             ) : (
-                    <>
-                        <div className="container ">
-                            <div className="row border mt-5 p-5" >
-                                <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
-                                    <div className="result-section">
-                                        <div className="result-items">
-                                            <div className="d-flex mt-4">
-                                                <h3>Topilgan so'zlarni qayta mustaxkamlang:</h3>
-                                            </div>
-                                            {correctData.length ? (
-                                                correctData.map(item => (
-                                                    <p key={item._id}>{item.question} - {item.answer}</p>
-                                                ))
-                                            ) : (
-                                                <p>Siz so'z topa olmadingiz.</p>
-                                            )}
-                                            <button className="btn mx-2 mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allCorrectWordsTryAgain}>topilgan so'zlarni qayta o'ynash</button>
+                <>
+                    <div className="container ">
+                        <div className="row border mt-5 p-5" >
+                            <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
+                                <div className="result-section">
+                                    <div className="result-items">
+                                        <div className="d-flex mt-4">
+                                            <h3>Topilgan so'zlarni qayta mustaxkamlang:</h3>
                                         </div>
+                                        {correctData.length ? (
+                                            correctData.map(item => (
+                                                <p key={item._id}>{item.question} - {item.answer}</p>
+                                            ))
+                                        ) : (
+                                            <p>Siz so'z topa olmadingiz.</p>
+                                        )}
+                                        <button className="btn mx-2 mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allCorrectWordsTryAgain}>topilgan so'zlarni qayta o'ynash</button>
                                     </div>
-                                </div>
-                                <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
-                                    <div className="result-section">
-                                        <div className="result-items">
-                                            <div className="d-flex mt-4">
-                                                <h3>Topilmagan so'zlarni qayta o'ynang</h3>
-                                            </div>
-                                            {incorrectData.length ? (
-                                                incorrectData.map(item => (
-                                                    <p key={item._id}>{item.question} - {item.answer}</p>
-                                                ))
-                                            ) : (
-                                                <p>Siz hammasini to'g'ri topdingiz.</p>
-                                            )}
-                                            <button className="mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allInCorrectWordsTryAgain}>topilmagan so'zlarni qayta o'ynash</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    <button className="try-again-btn btn text-light " onClick={allWordsTryAgain}>Qaytadan o'ynash</button>
-                                    <button className="btn btn-danger text-light " onClick={() => navigate("/controller")}>
-                                        Bosh menuga qaytish
-                                    </button>
                                 </div>
                             </div>
-                           
-                     </div>
+                            <div className="col-lg-6 mx-auto col-md-6 col-sm-12">
+                                <div className="result-section">
+                                    <div className="result-items">
+                                        <div className="d-flex mt-4">
+                                            <h3>Topilmagan so'zlarni qayta o'ynang</h3>
+                                        </div>
+                                        {incorrectData.length ? (
+                                            incorrectData.map(item => (
+                                                <p key={item._id}>{item.question} - {item.answer}</p>
+                                            ))
+                                        ) : (
+                                            <p>Siz hammasini to'g'ri topdingiz.</p>
+                                        )}
+                                        <button className="mx-2 try-again-btn  text-light btn w-75 mx-auto" onClick={allInCorrectWordsTryAgain}>topilmagan so'zlarni qayta o'ynash</button>
 
-                    </>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <button className="try-again-btn btn text-light " onClick={allWordsTryAgain}>Qaytadan o'ynash</button>
+                                <button className="btn btn-danger text-light " onClick={() => navigate("/controller")}>
+                                    Bosh menuga qaytish
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </>
 
             )}
         </div>
     );
 };
-export default Playgame;
+export default Writing;

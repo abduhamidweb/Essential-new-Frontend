@@ -115,6 +115,21 @@ const Controller = () => {
             console.error('Please select at least one book, one unit, and set word count.');
         }
     };
+    const handlerNavigateWriting = () => {
+        if (selectedBooks.length && selectedUnits.length && (count || wordsCount) && sort === 'eng') {
+            const allController = {
+                "booksId": selectedBooks,
+                "unitsId": selectedUnits,
+                "sort": sort,
+                "wordCount": count ? Number(count) : Number(wordsCount)
+            };
+
+            dispatch(setAllContr(allController));
+            navigate("/writing");
+        } else {
+            console.error('Please select at least one book, one unit, and set word count.');
+        }
+    };
 
     const groupedUnits = {};
 
@@ -146,7 +161,7 @@ const Controller = () => {
                             <span className="checkmark"></span>
                             <label>Uzb to Eng</label>
                         </div>
-                </div>
+                    </div>
                 </div>
                 <div className="col-lg-12 col-md-12 col-sm-12 border p-2 mt-2 d-flex">
                     <ul>
@@ -190,11 +205,12 @@ const Controller = () => {
                         </div>
                     </ul>
                 </div>
-                </div>
+            </div>
             <div className="col-12 info border p-2 mt-3 ">
                 <h4>Yo'nalish <strong>{sort}</strong>. Miqdori <strong>{count ? count : wordsCount}</strong>. Bu ko'pmasmi!!</h4>
                 <input type="range" max={wordsCount} className="w-50" maxLength={wordsCount} onChange={(e) => setCount(e.target.value)} />
                 <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigate}>play game</button>
+                <button className="btn btn-info w-100 mt-3 p-3" onClick={handlerNavigateWriting}>writing</button>
             </div>
         </div>
     );
